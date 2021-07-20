@@ -37,7 +37,28 @@
         <p>{{ message }}</p>
         <input v-model="message">
     </div>
+    <br>
+    <div id="app-7">
+        <ol>
+            <!--
+            Agora provemos cada todo-item com o objeto todo que ele
+            representa, de forma que seu conteúdo possa ser dinâmico.
+            Também precisamos prover cada componente com uma "chave",
+            a qual será explicada posteriormente.
+            -->
+            <todo-item
+            v-for="item in groceryList"
+            v-bind:todo="item"
+            v-bind:key="item.id"
+            ></todo-item>
+        </ol>
+    </div>
     <script>
+       Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{ todo.text }}</li>'
+        })
+
         var app = new Vue({
             el: '#app',
             data: {
@@ -86,6 +107,17 @@
             el: '#app-6',
             data: {
                 message: 'Olá Vue!'
+            }
+        })
+
+        var app7 = new Vue({
+            el: '#app-7',
+            data: {
+                groceryList: [
+                { id: 0, text: 'Vegetais' },
+                { id: 1, text: 'Queijo' },
+                { id: 2, text: 'Qualquer outra coisa que humanos podem comer' }
+                ]
             }
         })
     </script>
